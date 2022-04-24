@@ -7,15 +7,15 @@ const authorise = require("../middlewares/authorise");
 
 const router = express.Router();
 
-router.get("", async (req, res) => {
-  try {
-    const pets = await Pet.find().lean().exec();
+// router.get("", async (req, res) => {
+//   try {
+//     const pets = await Pet.find().lean().exec();
 
-    return res.send(pets);
-  } catch (err) {
-    return res.status(500).send(err);
-  }
-});
+//     return res.send(pets);
+//   } catch (err) {
+//     return res.status(500).send(err);
+//   }
+// });
 
 router.post(
   "/listing/create",
