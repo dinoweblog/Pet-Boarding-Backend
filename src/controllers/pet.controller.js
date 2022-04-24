@@ -32,7 +32,7 @@ router.post(
   }
 );
 
-router.post(
+router.get(
   "/listing/:id",
 
   async (req, res) => {
