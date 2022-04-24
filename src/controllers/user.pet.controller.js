@@ -7,25 +7,20 @@ const authorise = require("../middlewares/authorise");
 
 const router = express.Router();
 
-router.get(
-  "/all",
-  authenticate,
-  authorise(["admin", "users"]),
-  async (req, res) => {
-    try {
-      const pets = await AllPets.find().lean().exec();
+router.get("/all", async (req, res) => {
+  try {
+    const pets = await AllPets.find().lean().exec();
 
-      return res.send(pets);
-    } catch (err) {
-      return res.status(500).send(err);
-    }
+    return res.send(pets);
+  } catch (err) {
+    return res.status(500).send(err);
   }
-);
+});
 
 router.post(
   "/create",
   authenticate,
-  //   authorise(["admin", "users"]),
+  authorise(["admin", "users"]),
   async (req, res) => {
     try {
       const pet = await AllPets.create(req.body);
