@@ -32,4 +32,19 @@ router.post(
   }
 );
 
+router.post(
+  "/listing/:id",
+
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const pet = await Pet.findById(id).lean().exec();
+
+      return res.send({ pet });
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  }
+);
+
 module.exports = router;
