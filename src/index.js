@@ -8,9 +8,13 @@ const app = express();
 
 app.use(express.json());
 
+app.use(express.static("public"));
+
 app.post("/register", register);
 app.post("/login", login);
 
-app.use("/pets", userPetController);
 app.use("/", petController);
+
+app.use("/pets", userPetController);
+
 module.exports = app;
