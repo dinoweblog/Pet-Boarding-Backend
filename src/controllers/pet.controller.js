@@ -54,12 +54,15 @@ router.put(
   authorise(["admin"]),
   async (req, res) => {
     try {
-      const id = req.params.id;
-      const pet = await AllPets.findByIdAndUpdate(id, req.body);
+      const pet = await AllPets.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      })
+        .lean()
+        .exec();
 
-      return res.send({ pet });
+      return res.status(201).send(pet);
     } catch (err) {
-      return res.status(500).send(err);
+      return res.status(500).send({ error: err.message });
     }
   }
 );
