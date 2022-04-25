@@ -48,7 +48,7 @@ router.get(
   }
 );
 
-router.put(
+router.patch(
   "/approval/:id",
   authenticate,
   authorise(["admin"]),
