@@ -1,6 +1,7 @@
 const express = require("express");
 
 const Pet = require("../models/pet.model");
+const AllPets = require("../models/user.pet.model");
 
 const authenticate = require("../middlewares/authenticate");
 const authorise = require("../middlewares/authorise");
@@ -39,6 +40,22 @@ router.get(
     try {
       const id = req.params.id;
       const pet = await Pet.findById(id).lean().exec();
+
+      return res.send({ pet });
+    } catch (err) {
+      return res.status(500).send(err);
+    }
+  }
+);
+
+router.put(
+  "/approval/:id",
+  authenticate,
+  authorise(["admin"]),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const pet = await AllPets.findByIdAndUpdate(id, req.body);
 
       return res.send({ pet });
     } catch (err) {

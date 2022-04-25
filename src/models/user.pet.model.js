@@ -10,6 +10,7 @@ const allpetSchema = new mongoose.Schema(
     weight: { type: String, required: true },
     no_of_pets: { type: Number, required: true },
     no_of_days: { type: Number, required: true },
+    approve: { type: String, required: true, default: "pending" },
   },
   {
     versionKey: false,
