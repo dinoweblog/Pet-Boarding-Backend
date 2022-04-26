@@ -10,11 +10,29 @@ const router = express.Router();
 
 router.get("", async (req, res) => {
   try {
-    const pets = await Pet.find().lean().exec();
+    const page = +req.query.page || 1;
+    const size = +req.query.size || 3;
+    let search = req.query.search;
 
-    return res.send(pets);
+    const skip = (page - 1) * size;
+
+    let pets, totalPages;
+    if (!search) {
+      pets = await Pet.find().skip(skip).limit(size).lean().exec();
+
+      totalPages = Math.ceil((await Pet.find().countDocuments()) / size);
+    } else {
+      pets = await Pet.find({ city: search })
+        .skip(skip)
+        .limit(size)
+        .lean()
+        .exec();
+      totalPages = Math.ceil((await Pet.find().countDocuments()) / size);
+    }
+
+    return res.status(200).send({ pets, totalPages });
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).send(err.message);
   }
 });
 

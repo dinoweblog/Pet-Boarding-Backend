@@ -11,6 +11,11 @@ const allpetSchema = new mongoose.Schema(
     no_of_pets: { type: Number, required: true },
     no_of_days: { type: Number, required: true },
     approval_status: { type: String, required: true, default: "Pending" },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   {
     versionKey: false,
