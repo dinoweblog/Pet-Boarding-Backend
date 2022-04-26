@@ -67,6 +67,40 @@ router.get(
 );
 
 router.patch(
+  "/listing/edit/:id",
+  authenticate,
+  authorise(["admin"]),
+  async (req, res) => {
+    try {
+      const pet = await Pet.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      })
+        .lean()
+        .exec();
+
+      return res.status(201).send(pet);
+    } catch (err) {
+      return res.status(500).send({ error: err.message });
+    }
+  }
+);
+
+router.delete(
+  "/listing/delete/:id",
+  authenticate,
+  authorise(["admin"]),
+  async (req, res) => {
+    try {
+      const pet = await Pet.findByIdAndDelete(req.params.id);
+
+      return res.status(201).send(pet);
+    } catch (err) {
+      return res.status(500).send({ error: err.message });
+    }
+  }
+);
+
+router.patch(
   "/approval/:id",
   authenticate,
   authorise(["admin"]),
