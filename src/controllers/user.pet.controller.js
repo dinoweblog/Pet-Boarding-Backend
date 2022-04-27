@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get("/all/:id", async (req, res) => {
   try {
+    const id = req.params.id;
     const pets = await AllPets.find({ user_id: id }).lean().exec();
 
     return res.send(pets);
