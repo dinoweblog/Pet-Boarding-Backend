@@ -7,9 +7,9 @@ const authorise = require("../middlewares/authorise");
 
 const router = express.Router();
 
-router.get("/all", async (req, res) => {
+router.get("/all/:id", async (req, res) => {
   try {
-    const pets = await AllPets.find().lean().exec();
+    const pets = await AllPets.find({ user_id: id }).lean().exec();
 
     return res.send(pets);
   } catch (err) {
