@@ -66,7 +66,7 @@ router.get(
   }
 );
 
-router.put(
+router.patch(
   "/listing/update/:id",
   authenticate,
   authorise(["admin"]),
