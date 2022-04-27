@@ -18,7 +18,7 @@ router.get("/all/:id", async (req, res) => {
   }
 });
 
-router.get("/all/", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const pets = await AllPets.find().lean().exec();
 
