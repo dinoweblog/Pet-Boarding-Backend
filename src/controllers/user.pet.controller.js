@@ -18,6 +18,16 @@ router.get("/all/:id", async (req, res) => {
   }
 });
 
+router.get("/all/", async (req, res) => {
+  try {
+    const pets = await AllPets.find().lean().exec();
+
+    return res.send(pets);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
 router.post(
   "/create",
   authenticate,
