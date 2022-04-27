@@ -67,7 +67,7 @@ router.get(
 );
 
 router.patch(
-  "/listing/edit/:id",
+  "/listing/update/:id",
   authenticate,
   authorise(["admin"]),
   async (req, res) => {
